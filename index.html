@@ -42,14 +42,11 @@
         .floating-rose {
             position: fixed;
             width: auto;
-            height: 100px; /* Slightly smaller for better scattering */
+            height: 100px;
             z-index: 1001;
             animation: floatAround 18s ease-in-out infinite;
             filter: drop-shadow(0 5px 15px rgba(255, 107, 107, 0.4));
             pointer-events: none;
-            /* Random positioning across entire screen */
-            left: calc(20px + Math.random() * (100vw - 200px));
-            top: calc(20px + Math.random() * (100vh - 200px));
         }
 
         @keyframes float {
@@ -83,7 +80,7 @@
             }
         }
 
-        /* Rest of your CSS remains exactly the same */
+        /* Initial message screen - UPDATED FOR MOBILE SCROLLING */
         #initial-screen {
             position: fixed;
             top: 0;
@@ -96,16 +93,23 @@
             align-items: center;
             z-index: 1000;
             transition: opacity 0.5s ease-out;
+            /* NEW: Mobile scrolling */
+            overflow-y: auto;
+            padding: 20px 0;
         }
 
         .message-container {
             text-align: center;
-            padding: 40px;
+            padding: 30px; /* Reduced for mobile */
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 80%;
+            max-width: 90%; /* Increased for mobile */
             z-index: 1001;
+            /* NEW: Better mobile experience */
+            margin: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .message-container h1 {
@@ -344,7 +348,34 @@
             transition: opacity 0.5s ease-in-out;
         }
 
+        /* Mobile-specific improvements */
         @media (max-width: 768px) {
+            #initial-screen {
+                padding: 15px 0;
+            }
+
+            .message-container {
+                padding: 20px;
+                margin: 15px;
+                max-height: 85vh;
+            }
+
+            .message-container h1 {
+                font-size: 2em;
+                margin-bottom: 15px;
+            }
+
+            .message-container p {
+                font-size: 1.1em;
+                margin-bottom: 12px;
+                line-height: 1.5;
+            }
+
+            .tap-text {
+                margin-top: 20px;
+                font-size: 1em;
+            }
+
             .rose-image {
                 height: 120px;
                 top: 30px;
@@ -367,6 +398,26 @@
             video, audio {
                 max-width: 350px;
             }
+
+            .play-button {
+                padding: 18px 35px;
+                font-size: 1.2em;
+            }
+        }
+
+        /* Very small phones */
+        @media (max-width: 480px) {
+            .message-container h1 {
+                font-size: 1.8em;
+            }
+
+            .message-container p {
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 25px;
+            }
         }
     </style>
 </head>
@@ -387,7 +438,7 @@
     <!-- Main Content -->
     <div id="main-content">
         <!-- Rose Image -->
-        <img src="your_custom_rose_image.jpg" alt="Beautiful Rose" class="rose-image" id="main-rose">
+        <img src="./your_custom_rose_image.jpg" alt="Beautiful Rose" class="rose-image" id="main-rose">
 
         <div class="container">
             <h1>🎉 Happy Birthday, Meet! 🎂</h1>
@@ -408,8 +459,8 @@
                         <div class="placeholder-text" style="font-style: italic; font-size: 1.8em;">Happy Birthday Meet</div>
                     </div>
                     <video controls id="birthday-video1">
-                        <source src="birthday_video1.mp4" type="video/mp4">
-                        <source src="birthday_video1.mov" type="video/quicktime">
+                        <source src="./birthday_video1.mp4" type="video/mp4">
+                        <source src="./birthday_video1.mov" type="video/quicktime">
                     </video>
                 </div>
 
@@ -421,8 +472,8 @@
                         <div class="placeholder-heart">❤️</div>
                     </div>
                     <video controls id="birthday-video2">
-                        <source src="birthday_video2.mp4" type="video/mp4">
-                        <source src="birthday_video2.mov" type="video/quicktime">
+                        <source src="./birthday_video2.mp4" type="video/mp4">
+                        <source src="./birthday_video2.mov" type="video/quicktime">
                     </video>
                 </div>
 
@@ -434,8 +485,8 @@
                         <div class="placeholder-smiley">🙂</div>
                     </div>
                     <audio controls id="voice-note">
-                        <source src="voice_note.mp3" type="audio/mp3">
-                        <source src="voice_note.wav" type="audio/wav">
+                        <source src="./voice_note.mp3" type="audio/mp3">
+                        <source src="./voice_note.wav" type="audio/wav">
                     </audio>
                 </div>
             </div>
@@ -472,7 +523,7 @@
             let isMediaPlaying = false;
             let isMainConfettiStopped = false;
             let roseCloneCount = 0;
-            const maxRoses = 22; // CHANGED TO HER AGE - 22
+            const maxRoses = 22;
 
             // Set canvas sizes
             confettiCanvas.width = window.innerWidth;
@@ -605,7 +656,7 @@
 
             function createFloatingRose() {
                 const floatingRose = document.createElement('img');
-                floatingRose.src = 'your_custom_rose_image.jpg';
+                floatingRose.src = './your_custom_rose_image.jpg';
                 floatingRose.className = 'floating-rose';
                 floatingRose.alt = 'Floating Rose';
                 
@@ -764,7 +815,7 @@
                     mainConfettiPieces.push({
                         x: Math.random() * confettiCanvas.width,
                         y: -Math.random() * confettiCanvas.height,
-                        size: Math.random() * 4 + 2, // DECREASED SIZE (was 6+3)
+                        size: Math.random() * 4 + 2,
                         color: colors[Math.floor(Math.random() * colors.length)],
                         shape: shapes[Math.floor(Math.random() * shapes.length)],
                         speed: Math.random() * 3 + 1,
