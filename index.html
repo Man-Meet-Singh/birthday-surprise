@@ -393,7 +393,7 @@
             margin: 20px 0;
             border: 6px solid #ff6b6b;
             box-shadow: 0 15px 35px rgba(255, 107, 107, 0.5);
-            animation: imagePulse 2s ease-in-out infinite;
+            /* Removed floating animation from special image */
         }
 
         .bouquet-romantic-text {
@@ -442,6 +442,61 @@
         @keyframes overlayAppear {
             0% { opacity: 0; }
             100% { opacity: 1; }
+        }
+
+        /* New Styles for Added Elements */
+        .tap-indicator {
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #ff6b6b;
+            animation: tapPulse 1.5s ease-in-out infinite;
+            font-weight: bold;
+        }
+
+        @keyframes tapPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Golden Glow for "Sohni Sunakhi Kudi" - Darkened text */
+        .golden-glow {
+            background: linear-gradient(45deg, #FFD700, #FFEC8B, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            animation: goldenShimmer 2s ease-in-out infinite;
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 5px;
+            /* Darkened text effect */
+            filter: brightness(0.8) contrast(1.2);
+        }
+
+        @keyframes goldenShimmer {
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3);
+            }
+            50% { 
+                text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        /* Red Glimmer for "Meet" text */
+        .meet-glow {
+            color: #ff6b6b;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+            animation: redGlimmer 2s ease-in-out infinite;
+            font-weight: bold;
+        }
+
+        @keyframes redGlimmer {
+            0%, 100% { 
+                text-shadow: 0 0 5px rgba(255, 107, 107, 0.5), 0 0 10px rgba(255, 107, 107, 0.3);
+            }
+            50% { 
+                text-shadow: 0 0 10px rgba(255, 107, 107, 0.8), 0 0 20px rgba(255, 107, 107, 0.5), 0 0 30px rgba(255, 107, 107, 0.3);
+            }
         }
 
         /* Mobile-specific improvements */
@@ -573,20 +628,20 @@
     <div id="page1" class="page-screen">
         <div class="message-container">
             <h1>Wishing You The Happiest Birthday! 🎂🎉🎉</h1>
-            <p>So as I am not able to meet you today and give you a gift.</p>
-            <p>Toh Socha ki Birthday Wish hi thoda alag tareeke se Kardu...</p>
+            <p>So as I am not able to meet you today and give a gift.</p>
+            <p>Toh Socha ki Birthday Wish hi thoda alag tareeke se Kardu....</p>
             <p>Cause thoda toh special wish hona chahiye na, Baaki Gift baad mein.</p>
-            <p class="tap-text">Tap anywhere to continue.</p>
+            <p class="tap-text">Tap Anywhere....</p>
         </div>
     </div>
 
     <!-- Page 2: Special Message -->
     <div id="page2" class="page-screen" style="display: none;">
         <div class="message-container">
-            <h1>But Beware! ✨</h1>
-            <p>Only the most Sohni-Sunakhi Kudi that I have ever seen can continue...✨✨</p>
+            <h1>Sohni Kudi Detector! ✨</h1>
+            <p>Only the most <span class="golden-glow">Sohni-Sunakhi Kudi</span> that I have ever met will be able to continue further....✨✨</p>
             <p>Maine ye aaj raat mein hi banana seekha hai, toh webpage thoda childish lag skta hai 🙂...</p>
-            <p class="tap-text">Tap anywhere to continue.</p>
+            <p class="tap-text">Tap Anywhere....</p>
         </div>
     </div>
 
@@ -596,7 +651,7 @@
         <img src="./your_custom_rose_image.jpg" alt="Beautiful Rose" class="rose-image" id="main-rose">
 
         <div class="container">
-            <h1>🎉 Happy Birthday, Meet! 🎂</h1>
+            <h1>🎉 Happy Birthday, <span class="meet-glow">Meet</span>! 🎂</h1>
             
             <div class="birthday-message">
                 <p>Every moment with you is a blessing I cherish deeply.</p>
@@ -610,7 +665,8 @@
                 <div class="media-item">
                     <h2>🎬 Happiest Birthday Mayalu!</h2>
                     <div class="media-placeholder" id="placeholder-video1" data-media="video1">
-                        <div class="placeholder-text" style="font-style: italic; font-size: 1.8em;">Happy Birthday Meet</div>
+                        <div class="placeholder-text" style="font-style: italic; font-size: 1.8em;">Happy Birthday <span class="meet-glow">Meet</span></div>
+                        <div class="tap-indicator">Tap</div>
                     </div>
                     <video controls id="birthday-video1">
                         <source src="./birthday_video1.mp4" type="video/mp4">
@@ -620,9 +676,10 @@
 
                 <!-- Second Video -->
                 <div class="media-item">
-                    <h2>🎬 Started Making This Long Time Ago!</h2>
+                    <h2>🎬 Started Making This Video A Long Time Ago!</h2>
                     <div class="media-placeholder" id="placeholder-video2" data-media="video2">
                         <div class="placeholder-heart">❤️</div>
+                        <div class="tap-indicator">Tap</div>
                     </div>
                     <video controls id="birthday-video2">
                         <source src="./birthday_video2.mp4" type="video/mp4">
@@ -635,6 +692,7 @@
                     <h2>🎵 From...</h2>
                     <div class="media-placeholder" id="placeholder-audio" data-media="audio">
                         <div class="placeholder-smiley">🙂</div>
+                        <div class="tap-indicator">Tap</div>
                     </div>
                     <audio controls id="voice-note">
                         <source src="./voice_note.mp3" type="audio/mp3">
@@ -919,9 +977,9 @@
                 
                 // Create message
                 const message = document.createElement('h2');
-                message.textContent = 'Happy 22nd Birthday Meet! 🎉';
+                message.innerHTML = 'Happy 22nd Birthday <span class="meet-glow">Meet</span>! 🎉';
                 
-                // Create rectangular image (not heart-shaped)
+                // Create rectangular image (not heart-shaped) - NO FLOATING ANIMATION
                 const rectangularImage = document.createElement('img');
                 rectangularImage.src = './special_heart_image.jpg'; // Your special image
                 rectangularImage.className = 'rectangular-image';
