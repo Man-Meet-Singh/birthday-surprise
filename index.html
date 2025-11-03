@@ -19,6 +19,61 @@
             background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
         }
 
+        /* Page screens */
+        .page-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease-out;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .message-container {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            z-index: 1001;
+            margin: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .message-container h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .message-container p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .tap-text {
+            margin-top: 30px;
+            font-style: italic;
+            color: #888;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
         /* Rose image styling */
         .rose-image {
             position: fixed;
@@ -46,7 +101,13 @@
             z-index: 1001;
             animation: floatAround 18s ease-in-out infinite;
             filter: drop-shadow(0 5px 15px rgba(255, 107, 107, 0.4));
-            pointer-events: none;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .floating-rose:hover {
+            transform: scale(1.1);
         }
 
         @keyframes float {
@@ -78,63 +139,6 @@
             85% { 
                 opacity: 0.8;
             }
-        }
-
-        /* Initial message screen - UPDATED FOR MOBILE SCROLLING */
-        #initial-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.5s ease-out;
-            /* NEW: Mobile scrolling */
-            overflow-y: auto;
-            padding: 20px 0;
-        }
-
-        .message-container {
-            text-align: center;
-            padding: 30px; /* Reduced for mobile */
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 90%; /* Increased for mobile */
-            z-index: 1001;
-            /* NEW: Better mobile experience */
-            margin: 20px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .message-container h1 {
-            color: #ff6b6b;
-            margin-bottom: 20px;
-            font-size: 2.5em;
-        }
-
-        .message-container p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .tap-text {
-            margin-top: 30px;
-            font-style: italic;
-            color: #888;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
         }
 
         #main-content {
@@ -183,57 +187,6 @@
             max-width: 400px;
         }
 
-        .play-button {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            border: none;
-            border-radius: 25px;
-            padding: 15px 30px;
-            color: white;
-            font-size: 1.1em;
-            cursor: pointer;
-            margin: 10px 0;
-            transition: all 0.4s ease;
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .play-button:before {
-            content: '✨';
-            font-size: 1.2em;
-            transition: all 0.3s ease;
-        }
-
-        .play-button:after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
-        }
-
-        .play-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.6);
-            background: linear-gradient(135deg, #ff8e8e, #ff6b6b);
-        }
-
-        .play-button:hover:after {
-            left: 100%;
-        }
-
-        .play-button.playing:before {
-            content: '⏸️';
-        }
-
         .media-placeholder {
             width: 100%;
             max-width: 400px;
@@ -249,6 +202,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .media-placeholder:before {
@@ -273,11 +227,32 @@
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
 
+        .media-placeholder.playing {
+            border: 3px solid #ff6b6b;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
+            background: linear-gradient(135deg, #fff5f5, #ffecec);
+        }
+
         .placeholder-text {
             font-size: 2.5em;
             color: #ff6b6b;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             z-index: 2;
+            transition: all 0.3s ease;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { 
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1), 0 0 10px rgba(255,107,107,0.3);
+            }
+            50% { 
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1), 0 0 20px rgba(255,107,107,0.6);
+            }
+        }
+
+        .media-placeholder:hover .placeholder-text {
+            transform: scale(1.05);
         }
 
         .placeholder-heart {
@@ -286,6 +261,11 @@
             animation: heartbeat 1.5s ease-in-out infinite;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .media-placeholder:hover .placeholder-heart {
+            transform: scale(1.1);
         }
 
         .placeholder-smiley {
@@ -296,16 +276,25 @@
             z-index: 2;
             transform: rotate(180deg);
             display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .media-placeholder:hover .placeholder-smiley {
+            transform: rotate(180deg) scale(1.1);
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
+            75% { transform: scale(1.1); }
         }
 
         @keyframes bounce {
             0%, 100% { transform: rotate(180deg) translateY(0); }
-            50% { transform: rotate(180deg) translateY(-10px); }
+            25% { transform: rotate(180deg) translateY(-8px); }
+            50% { transform: rotate(180deg) translateY(-12px); }
+            75% { transform: rotate(180deg) translateY(-8px); }
         }
 
         .signature {
@@ -348,9 +337,116 @@
             transition: opacity 0.5s ease-in-out;
         }
 
+        /* Special Bouquet Styles */
+        .special-bouquet {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 2000;
+            text-align: center;
+            animation: bouquetAppear 1s ease-out forwards;
+            cursor: pointer;
+        }
+
+        .bouquet-image {
+            width: 300px;
+            height: auto;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+            animation: bouquetFloat 3s ease-in-out infinite;
+        }
+
+        .bouquet-message-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.98);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            width: 500px;
+            height: 600px; /* Increased height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: messageAppear 0.8s ease-out 0.5s forwards;
+            border: 4px solid #ff6b6b;
+        }
+
+        .bouquet-message-container h2 {
+            color: #ff6b6b;
+            margin-bottom: 25px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Updated: Changed from heart shape to rectangular image with increased height */
+        .rectangular-image {
+            width: 220px;
+            height: 350px; /* Increased height more than 300px */
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 6px solid #ff6b6b;
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.5);
+            animation: imagePulse 2s ease-in-out infinite;
+        }
+
+        .bouquet-romantic-text {
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: #666;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @keyframes bouquetAppear {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); }
+            70% { transform: translate(-50%, -50%) scale(1.1) rotate(10deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        }
+
+        @keyframes bouquetFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(2deg); }
+            66% { transform: translateY(-8px) rotate(-1deg); }
+        }
+
+        @keyframes messageAppear {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes imagePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 15px 35px rgba(255, 107, 107, 0.5); }
+            50% { transform: scale(1.08); box-shadow: 0 20px 45px rgba(255, 107, 107, 0.7); }
+        }
+
+        .bouquet-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1999;
+            opacity: 0;
+            animation: overlayAppear 0.5s ease-out forwards;
+            cursor: pointer;
+        }
+
+        @keyframes overlayAppear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
         /* Mobile-specific improvements */
         @media (max-width: 768px) {
-            #initial-screen {
+            .page-screen {
                 padding: 15px 0;
             }
 
@@ -399,9 +495,27 @@
                 max-width: 350px;
             }
 
-            .play-button {
-                padding: 18px 35px;
-                font-size: 1.2em;
+            .bouquet-image {
+                width: 250px;
+            }
+
+            .bouquet-message-container {
+                width: 400px;
+                height: 500px; /* Adjusted for mobile */
+                padding: 30px;
+            }
+
+            .bouquet-message-container h2 {
+                font-size: 2em;
+            }
+
+            .rectangular-image {
+                width: 180px;
+                height: 280px; /* Adjusted for mobile */
+            }
+
+            .bouquet-romantic-text {
+                font-size: 1.1em;
             }
         }
 
@@ -418,26 +532,67 @@
             .container {
                 padding: 25px;
             }
+
+            .placeholder-text {
+                font-size: 2em;
+            }
+
+            .placeholder-heart, .placeholder-smiley {
+                font-size: 3em;
+            }
+
+            .bouquet-image {
+                width: 200px;
+            }
+
+            .bouquet-message-container {
+                width: 320px;
+                height: 450px; /* Adjusted for very small phones */
+                padding: 25px;
+            }
+
+            .bouquet-message-container h2 {
+                font-size: 1.6em;
+                margin-bottom: 15px;
+            }
+
+            .rectangular-image {
+                width: 140px;
+                height: 220px; /* Adjusted for very small phones */
+            }
+
+            .bouquet-romantic-text {
+                font-size: 1em;
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Initial Click Screen -->
-    <div id="initial-screen">
+    <!-- Page 1: Welcome Message -->
+    <div id="page1" class="page-screen">
         <div class="message-container">
             <h1>Wishing You The Happiest Birthday! 🎂🎉🎉</h1>
-            <p>So as we were not able to meet in person and couldn't give you the gift.</p>
-            <p>Toh Socha ki Aise Wish Kardu...</p>
-            <p>Cause thoda toh special wish hona chahiye na, Gift sambhal ke rakh lunga</p>
+            <p>So as I am not able to meet you today and give you a gift.</p>
+            <p>Toh Socha ki Birthday Wish hi thoda alag tareeke se Kardu...</p>
+            <p>Cause thoda toh special wish hona chahiye na, Baaki Gift baad mein.</p>
             <p class="tap-text">Tap anywhere to continue.</p>
-            <p>But Beware! Only the most Sohni-Sunakhi Kudi can continue...✨✨</p>
-            <p>Maine ye aaj raat mein hi banana seekha hai, toh webpage thoda childish lag skta hai 🙂...</p>
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Page 2: Special Message -->
+    <div id="page2" class="page-screen" style="display: none;">
+        <div class="message-container">
+            <h1>But Beware! ✨</h1>
+            <p>Only the most Sohni-Sunakhi Kudi that I have ever seen can continue...✨✨</p>
+            <p>Maine ye aaj raat mein hi banana seekha hai, toh webpage thoda childish lag skta hai 🙂...</p>
+            <p class="tap-text">Tap anywhere to continue.</p>
+        </div>
+    </div>
+
+    <!-- Page 3: Main Content -->
     <div id="main-content">
-        <!-- Rose Image -->
+        <!-- Rose Image - Using original rose image reference -->
         <img src="./your_custom_rose_image.jpg" alt="Beautiful Rose" class="rose-image" id="main-rose">
 
         <div class="container">
@@ -454,8 +609,7 @@
                 <!-- First Video -->
                 <div class="media-item">
                     <h2>🎬 Happiest Birthday Mayalu!</h2>
-                    <button class="play-button" data-media="video1">Play Video</button>
-                    <div class="media-placeholder" id="placeholder-video1">
+                    <div class="media-placeholder" id="placeholder-video1" data-media="video1">
                         <div class="placeholder-text" style="font-style: italic; font-size: 1.8em;">Happy Birthday Meet</div>
                     </div>
                     <video controls id="birthday-video1">
@@ -467,8 +621,7 @@
                 <!-- Second Video -->
                 <div class="media-item">
                     <h2>🎬 Started Making This Long Time Ago!</h2>
-                    <button class="play-button" data-media="video2">Play Video</button>
-                    <div class="media-placeholder" id="placeholder-video2">
+                    <div class="media-placeholder" id="placeholder-video2" data-media="video2">
                         <div class="placeholder-heart">❤️</div>
                     </div>
                     <video controls id="birthday-video2">
@@ -480,8 +633,7 @@
                 <!-- Audio -->
                 <div class="media-item">
                     <h2>🎵 From...</h2>
-                    <button class="play-button" data-media="audio">Play Voice Note</button>
-                    <div class="media-placeholder" id="placeholder-audio">
+                    <div class="media-placeholder" id="placeholder-audio" data-media="audio">
                         <div class="placeholder-smiley">🙂</div>
                     </div>
                     <audio controls id="voice-note">
@@ -504,7 +656,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const initialScreen = document.getElementById('initial-screen');
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
             const mainContent = document.getElementById('main-content');
             const confettiCanvas = document.getElementById('confetti-canvas');
             const heartCanvas = document.getElementById('heart-confetti-canvas');
@@ -517,13 +670,17 @@
             
             let mainConfettiAnimation;
             let heartConfettiAnimation;
+            let roseConfettiAnimation;
             let mainConfettiPieces = [];
             let heartConfettiPieces = [];
-            let mainConfettiTimeout;
+            let roseConfettiPieces = [];
             let isMediaPlaying = false;
-            let isMainConfettiStopped = false;
+            let isRoseConfettiActive = false;
             let roseCloneCount = 0;
-            const maxRoses = 22;
+            const maxRoses = 21; // Changed to 21 so 22nd click triggers bouquet
+            let roseConfettiTimer = null;
+            let hasSpecialBouquetAppeared = false;
+            let bouquetTimeout = null;
 
             // Set canvas sizes
             confettiCanvas.width = window.innerWidth;
@@ -531,43 +688,66 @@
             heartCanvas.width = window.innerWidth;
             heartCanvas.height = window.innerHeight;
 
-            // Play buttons functionality
-            function setupPlayButtons() {
-                const playButtons = document.querySelectorAll('.play-button');
+            // Page navigation
+            let currentPage = 1;
+            
+            function goToNextPage() {
+                if (currentPage === 1) {
+                    page1.style.opacity = '0';
+                    setTimeout(() => {
+                        page1.style.display = 'none';
+                        page2.style.display = 'flex';
+                        page2.style.opacity = '1';
+                        currentPage = 2;
+                    }, 500);
+                } else if (currentPage === 2) {
+                    page2.style.opacity = '0';
+                    setTimeout(() => {
+                        page2.style.display = 'none';
+                        mainContent.style.display = 'block';
+                        startMainConfetti(); // Start colorful confetti indefinitely
+                    }, 500);
+                }
+            }
+
+            // Click to navigate pages
+            page1.addEventListener('click', goToNextPage);
+            page2.addEventListener('click', goToNextPage);
+
+            // Media placeholders functionality
+            function setupMediaPlaceholders() {
+                const mediaPlaceholders = document.querySelectorAll('.media-placeholder');
                 
-                playButtons.forEach(button => {
-                    button.addEventListener('click', function() {
+                mediaPlaceholders.forEach(placeholder => {
+                    placeholder.addEventListener('click', function() {
                         const mediaType = this.getAttribute('data-media');
-                        let mediaElement, placeholder;
+                        let mediaElement;
                         
                         switch(mediaType) {
                             case 'video1':
                                 mediaElement = videoElement1;
-                                placeholder = document.getElementById('placeholder-video1');
                                 break;
                             case 'video2':
                                 mediaElement = videoElement2;
-                                placeholder = document.getElementById('placeholder-video2');
                                 break;
                             case 'audio':
                                 mediaElement = audioElement;
-                                placeholder = document.getElementById('placeholder-audio');
                                 break;
                         }
                         
                         if (mediaElement.paused) {
                             // Show media, hide placeholder
                             mediaElement.style.display = 'block';
-                            placeholder.style.display = 'none';
+                            this.style.display = 'none';
                             
                             // Play media
                             mediaElement.play();
                             this.classList.add('playing');
                             
-                            // Trigger heart confetti
+                            // Trigger heart confetti and stop colorful confetti
                             if (!isMediaPlaying) {
                                 isMediaPlaying = true;
-                                stopMainConfettiPermanently();
+                                stopMainConfetti();
                                 startHeartConfetti();
                             }
                         } else {
@@ -577,34 +757,34 @@
                     });
                 });
 
-                // Add pause/play listeners to update button states
+                // Add pause/play listeners to update placeholder states
                 [videoElement1, videoElement2, audioElement].forEach(media => {
                     media.addEventListener('pause', function() {
-                        updatePlayButtonState(this, false);
+                        updateMediaPlaceholderState(this, false);
                     });
                     media.addEventListener('play', function() {
-                        updatePlayButtonState(this, true);
+                        updateMediaPlaceholderState(this, true);
                     });
                     media.addEventListener('ended', function() {
-                        updatePlayButtonState(this, false);
+                        updateMediaPlaceholderState(this, false);
                         showPlaceholder(this);
                     });
                 });
             }
 
-            function updatePlayButtonState(mediaElement, isPlaying) {
-                const playButtons = document.querySelectorAll('.play-button');
-                playButtons.forEach(button => {
-                    const mediaType = button.getAttribute('data-media');
+            function updateMediaPlaceholderState(mediaElement, isPlaying) {
+                const mediaPlaceholders = document.querySelectorAll('.media-placeholder');
+                mediaPlaceholders.forEach(placeholder => {
+                    const mediaType = placeholder.getAttribute('data-media');
                     if (
                         (mediaType === 'video1' && mediaElement === videoElement1) ||
                         (mediaType === 'video2' && mediaElement === videoElement2) ||
                         (mediaType === 'audio' && mediaElement === audioElement)
                     ) {
                         if (isPlaying) {
-                            button.classList.add('playing');
+                            placeholder.classList.add('playing');
                         } else {
-                            button.classList.remove('playing');
+                            placeholder.classList.remove('playing');
                         }
                     }
                 });
@@ -626,32 +806,21 @@
                 }
             }
 
-            // Initialize play buttons
-            setupPlayButtons();
-
-            // Click to reveal main content
-            initialScreen.addEventListener('click', function() {
-                initialScreen.style.opacity = '0';
-                
-                setTimeout(() => {
-                    initialScreen.style.display = 'none';
-                    mainContent.style.display = 'block';
-                    startMainConfetti();
-                    
-                    mainConfettiTimeout = setTimeout(() => {
-                        if (!isMediaPlaying) {
-                            stopMainConfettiPermanently();
-                        }
-                    }, 30000);
-                }, 500);
-            });
+            // Initialize media placeholders
+            setupMediaPlaceholders();
 
             // Rose multiplication effect - SCATTERED ACROSS WHOLE SCREEN
             mainRose.addEventListener('click', function() {
                 if (roseCloneCount < maxRoses) {
                     createFloatingRose();
                     roseCloneCount++;
+                } else if (!hasSpecialBouquetAppeared) {
+                    // 22nd click - Special bouquet appears! (Changed from 23rd to 22nd)
+                    createSpecialBouquet();
+                    hasSpecialBouquetAppeared = true;
                 }
+                // Start rose petal confetti from main rose
+                startRoseConfetti();
             });
 
             function createFloatingRose() {
@@ -671,6 +840,19 @@
                 floatingRose.style.animationDelay = `${Math.random() * 5}s`;
                 floatingRose.style.animationDuration = `${18 + Math.random() * 12}s`;
                 
+                // Add click event for rose petal burst effect
+                floatingRose.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    createRoseBurst(this);
+                    // Remove the rose after burst
+                    setTimeout(() => {
+                        if (floatingRose.parentNode) {
+                            floatingRose.parentNode.removeChild(floatingRose);
+                            roseCloneCount--;
+                        }
+                    }, 300);
+                });
+                
                 document.body.appendChild(floatingRose);
                 
                 // Remove rose after animation completes
@@ -680,6 +862,319 @@
                         roseCloneCount--;
                     }
                 }, 30000);
+            }
+
+            // Special Bouquet for 22nd click
+            function createSpecialBouquet() {
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'bouquet-overlay';
+                document.body.appendChild(overlay);
+
+                // Create bouquet container
+                const bouquetContainer = document.createElement('div');
+                bouquetContainer.className = 'special-bouquet';
+                
+                // Create bouquet image
+                const bouquetImage = document.createElement('img');
+                bouquetImage.src = './your_custom_rose_image.jpg'; // Using same rose image for bouquet
+                bouquetImage.className = 'bouquet-image';
+                bouquetImage.alt = 'Special Rose Bouquet';
+                
+                bouquetContainer.appendChild(bouquetImage);
+                document.body.appendChild(bouquetContainer);
+
+                // Add click event to show message
+                bouquetContainer.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    showBouquetMessage(bouquetContainer, overlay);
+                });
+
+                // Add click event to overlay to close bouquet
+                overlay.addEventListener('click', function() {
+                    closeSpecialBouquet(bouquetContainer, overlay);
+                });
+
+                // Stop all other confetti
+                stopMainConfetti();
+                stopRoseConfetti();
+                fadeOutHeartConfetti();
+
+                // Set 30-second timeout to auto-close
+                bouquetTimeout = setTimeout(() => {
+                    closeSpecialBouquet(bouquetContainer, overlay);
+                }, 30000);
+            }
+
+            function showBouquetMessage(bouquetContainer, overlay) {
+                // Remove existing message if any
+                const existingMessage = bouquetContainer.querySelector('.bouquet-message-container');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+
+                // Create message container
+                const messageContainer = document.createElement('div');
+                messageContainer.className = 'bouquet-message-container';
+                
+                // Create message
+                const message = document.createElement('h2');
+                message.textContent = 'Happy 22nd Birthday Meet! 🎉';
+                
+                // Create rectangular image (not heart-shaped)
+                const rectangularImage = document.createElement('img');
+                rectangularImage.src = './special_heart_image.jpg'; // Your special image
+                rectangularImage.className = 'rectangular-image';
+                rectangularImage.alt = 'Special Memory';
+                rectangularImage.onerror = function() {
+                    // If image fails to load, show a placeholder
+                    this.src = './your_custom_rose_image.jpg';
+                    this.alt = 'Rose Placeholder';
+                };
+                
+                // Create romantic text
+                const romanticText = document.createElement('div');
+                romanticText.className = 'bouquet-romantic-text';
+                romanticText.innerHTML = '22 roses for 22 wonderful years! 🌹<br>May your special day be as beautiful as you are! ✨';
+                
+                messageContainer.appendChild(message);
+                messageContainer.appendChild(rectangularImage);
+                messageContainer.appendChild(romanticText);
+                
+                bouquetContainer.appendChild(messageContainer);
+
+                // Add extra rose petal confetti for celebration
+                createCelebrationConfetti();
+
+                // Reset the 30-second timeout
+                if (bouquetTimeout) {
+                    clearTimeout(bouquetTimeout);
+                }
+                bouquetTimeout = setTimeout(() => {
+                    closeSpecialBouquet(bouquetContainer, overlay);
+                }, 30000);
+            }
+
+            function closeSpecialBouquet(bouquetContainer, overlay) {
+                // Remove bouquet and overlay
+                if (bouquetContainer.parentNode) {
+                    bouquetContainer.parentNode.removeChild(bouquetContainer);
+                }
+                if (overlay.parentNode) {
+                    overlay.parentNode.removeChild(overlay);
+                }
+                
+                // Clear timeout
+                if (bouquetTimeout) {
+                    clearTimeout(bouquetTimeout);
+                }
+                
+                // Reset bouquet flag
+                hasSpecialBouquetAppeared = false;
+                
+                // Restart main confetti
+                if (!isMediaPlaying && !isRoseConfettiActive) {
+                    startMainConfetti();
+                }
+            }
+
+            function createCelebrationConfetti() {
+                // Create extra special rose petal confetti
+                const celebrationColors = [
+                    '#ff69b4', '#ff1493', '#db7093', '#c71585', '#ffb6c1', 
+                    '#ffc0cb', '#ffd1dc', '#ffddf4'
+                ];
+                
+                for (let i = 0; i < 100; i++) {
+                    roseConfettiPieces.push({
+                        x: Math.random() * confettiCanvas.width,
+                        y: -Math.random() * 100,
+                        size: Math.random() * 15 + 8,
+                        color: celebrationColors[Math.floor(Math.random() * celebrationColors.length)],
+                        speed: Math.random() * 3 + 1,
+                        rotation: Math.random() * 6.28,
+                        rotationSpeed: Math.random() * 0.1 - 0.05,
+                        wobble: Math.random() * 2,
+                        wobbleSpeed: Math.random() * 0.1,
+                        sway: Math.random() * 0.8 - 0.4,
+                        shape: Math.random() > 0.5 ? 'curved' : 'heart'
+                    });
+                }
+                
+                if (!roseConfettiAnimation) {
+                    roseConfettiAnimation = requestAnimationFrame(drawRoseConfetti);
+                }
+            }
+
+            // Rose Petal Confetti Effect (from main rose) - RESTORED TO PINK SHADES
+            function startRoseConfetti() {
+                // Stop colorful confetti while rose petals fall
+                if (!isRoseConfettiActive) {
+                    stopMainConfetti();
+                    isRoseConfettiActive = true;
+                }
+                
+                // Add more rose petals (30 per click) - RESTORED TO PINK SHADES
+                const roseColors = [
+                    '#ff69b4', '#ff1493', '#db7093', '#c71585', '#ffb6c1', 
+                    '#ffc0cb', '#ffd1dc', '#ffddf4', '#ffe4e1', '#fff0f5'
+                ];
+                
+                for (let i = 0; i < 30; i++) {
+                    roseConfettiPieces.push({
+                        x: Math.random() * confettiCanvas.width,
+                        y: -Math.random() * 100,
+                        size: Math.random() * 12 + 6,
+                        color: roseColors[Math.floor(Math.random() * roseColors.length)],
+                        speed: Math.random() * 2 + 1,
+                        rotation: Math.random() * 6.28,
+                        rotationSpeed: Math.random() * 0.08 - 0.04,
+                        wobble: Math.random() * 2,
+                        wobbleSpeed: Math.random() * 0.08,
+                        sway: Math.random() * 0.5 - 0.25,
+                        shape: Math.random() > 0.5 ? 'curved' : 'heart'
+                    });
+                }
+                
+                // Start animation if not already running
+                if (!roseConfettiAnimation) {
+                    roseConfettiAnimation = requestAnimationFrame(drawRoseConfetti);
+                }
+                
+                // Reset/Extend the 10-second timer
+                if (roseConfettiTimer) {
+                    clearTimeout(roseConfettiTimer);
+                }
+                
+                roseConfettiTimer = setTimeout(() => {
+                    stopRoseConfetti();
+                }, 10000);
+            }
+
+            // Rose Burst Effect (from small floating roses) - RESTORED TO PINK SHADES
+            function createRoseBurst(roseElement) {
+                const rect = roseElement.getBoundingClientRect();
+                const burstX = rect.left + rect.width / 2;
+                const burstY = rect.top + rect.height / 2;
+                
+                // RESTORED TO PINK SHADES
+                const burstColors = [
+                    '#ff69b4', '#ff1493', '#db7093', '#c71585', '#ffb6c1'
+                ];
+                
+                // Create burst particles
+                for (let i = 0; i < 25; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 5 + 2;
+                    const size = Math.random() * 8 + 4;
+                    
+                    roseConfettiPieces.push({
+                        x: burstX,
+                        y: burstY,
+                        size: size,
+                        color: burstColors[Math.floor(Math.random() * burstColors.length)],
+                        speedX: Math.cos(angle) * speed,
+                        speedY: Math.sin(angle) * speed,
+                        rotation: Math.random() * 6.28,
+                        rotationSpeed: Math.random() * 0.1 - 0.05,
+                        wobble: Math.random() * 2,
+                        wobbleSpeed: Math.random() * 0.1,
+                        sway: Math.random() * 0.5 - 0.25,
+                        shape: Math.random() > 0.5 ? 'curved' : 'heart',
+                        gravity: 0.1,
+                        life: 100
+                    });
+                }
+                
+                // Start animation if not already running
+                if (!roseConfettiAnimation) {
+                    isRoseConfettiActive = true;
+                    stopMainConfetti();
+                    roseConfettiAnimation = requestAnimationFrame(drawRoseConfetti);
+                }
+            }
+
+            function drawRoseConfetti() {
+                if (!roseConfettiAnimation) return;
+                
+                ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+                roseConfettiPieces.forEach((piece, index) => {
+                    ctx.save();
+                    ctx.translate(piece.x, piece.y);
+                    ctx.rotate(piece.rotation);
+                    
+                    ctx.fillStyle = piece.color;
+                    
+                    // Draw realistic rose petal shapes
+                    if (piece.shape === 'curved') {
+                        // Curved petal shape
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, piece.size, piece.size * 0.6, piece.rotation, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        // Heart-shaped petal
+                        ctx.beginPath();
+                        const scale = piece.size / 10;
+                        ctx.moveTo(0, -piece.size/2);
+                        for (let i = 0; i < 20; i++) {
+                            const angle = 0.2 * i;
+                            const x = 8 * Math.pow(Math.sin(angle), 3) * scale;
+                            const y = -(6.5 * Math.cos(angle) - 2.5 * Math.cos(2 * angle) - Math.cos(3 * angle) - 0.5 * Math.cos(4 * angle)) * scale;
+                            ctx.lineTo(x, y);
+                        }
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+
+                    ctx.restore();
+
+                    // Update position with physics
+                    if (piece.speedX !== undefined) {
+                        // Burst particle physics
+                        piece.x += piece.speedX;
+                        piece.y += piece.speedY;
+                        piece.speedY += piece.gravity;
+                        piece.life--;
+                        
+                        if (piece.life <= 0) {
+                            roseConfettiPieces.splice(index, 1);
+                        }
+                    } else {
+                        // Regular falling petal physics
+                        piece.y += piece.speed;
+                        piece.x += Math.sin(piece.wobble) * 0.8 + piece.sway;
+                        piece.rotation += piece.rotationSpeed;
+                        piece.wobble += piece.wobbleSpeed;
+
+                        // Remove if out of screen
+                        if (piece.y > confettiCanvas.height) {
+                            roseConfettiPieces.splice(index, 1);
+                        }
+                    }
+                });
+
+                // Continue animation if there are still pieces
+                if (roseConfettiPieces.length > 0) {
+                    roseConfettiAnimation = requestAnimationFrame(drawRoseConfetti);
+                } else {
+                    roseConfettiAnimation = null;
+                    isRoseConfettiActive = false;
+                    // Restart colorful confetti if no media is playing
+                    if (!isMediaPlaying) {
+                        startMainConfetti();
+                    }
+                }
+            }
+
+            function stopRoseConfetti() {
+                if (roseConfettiTimer) {
+                    clearTimeout(roseConfettiTimer);
+                    roseConfettiTimer = null;
+                }
+                
+                // Let the existing pieces finish their animation naturally
+                // They will be removed in drawRoseConfetti when they go off-screen
             }
 
             function setupMediaListeners() {
@@ -697,7 +1192,7 @@
             function handleMediaPlay() {
                 if (!isMediaPlaying) {
                     isMediaPlaying = true;
-                    stopMainConfettiPermanently();
+                    stopMainConfetti();
                     startHeartConfetti();
                 }
             }
@@ -709,13 +1204,14 @@
                     audioElement.paused) {
                     isMediaPlaying = false;
                     fadeOutHeartConfetti();
+                    // Restart colorful confetti if no rose petals are falling
+                    if (!isRoseConfettiActive) {
+                        startMainConfetti();
+                    }
                 }
             }
 
-            function stopMainConfettiPermanently() {
-                isMainConfettiStopped = true;
-                confettiCanvas.style.opacity = '0';
-                
+            function stopMainConfetti() {
                 if (mainConfettiAnimation) {
                     cancelAnimationFrame(mainConfettiAnimation);
                     mainConfettiAnimation = null;
@@ -723,7 +1219,6 @@
                 
                 ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
                 mainConfettiPieces = [];
-                clearTimeout(mainConfettiTimeout);
             }
 
             function fadeOutHeartConfetti() {
@@ -810,7 +1305,6 @@
                 const colors = ['#4ecdc4', '#45b7d1', '#ffbe0b', '#fb5607', '#8338ec', '#3a86ff'];
                 const shapes = ['circle', 'rectangle'];
 
-                // INCREASED QUANTITY FROM 200 TO 350, DECREASED SIZE
                 for (let i = 0; i < 350; i++) {
                     mainConfettiPieces.push({
                         x: Math.random() * confettiCanvas.width,
@@ -827,7 +1321,7 @@
                 }
 
                 function drawMainConfetti() {
-                    if (!mainConfettiAnimation || isMainConfettiStopped) return;
+                    if (!mainConfettiAnimation) return;
                     
                     ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
 
